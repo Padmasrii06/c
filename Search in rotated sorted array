@@ -1,0 +1,30 @@
+int search(int* nums, int numsSize, int target) {
+    int left = 0;
+    int right = numsSize - 1;
+
+    while(left <= right) {
+        int mid = (left + right) / 2;
+
+        if(nums[mid] == target) return mid;
+
+        else if(nums[left] <= nums[mid]) { // left part is sorted
+            if(nums[left] <= target && target < nums[mid]) { // target is in the left part
+                right = mid - 1;
+            }
+            else { // target is in the right part
+                left = mid + 1;
+            }
+        }
+
+        else { // right part is sorted
+            if(nums[right] >= target && target > nums[mid]) { // target is in the right part
+                left = mid + 1;
+            }
+            else { // target is in the left part
+                right = mid - 1;
+            }
+        }
+    }
+
+    return -1;
+}
